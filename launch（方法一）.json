@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "miDebuggerServerAddress": "localhost:1234",
+            "program": "${workspaceFolder}/targets/objs/kernel.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/src",
+            // 如果遇到 GDB 无法找到符号的问题, 请取消下面这段代码的注释, 并将其中出现的所有路径（共14个）改为当前项目的路径, 请注意使用斜杠 / 而不是反斜杠 \
+            // 注意: 如果将当前 OOS 移动到其他路径, 下面的路径也需要同步变更; 如果在 src 下添加了新文件夹, 也需要加入下面的代码中
+            // TODO: 当前解决方案非常不优雅, 改为路径自动填充
+            // 
+            // "setupCommands": [
+            //     {
+            //         "text": "directory 'E:/Project/unix v6++/oos_qz3/src/boot' 'E:/Project/unix v6++/oos_qz3/src/dev' 'E:/Project/unix v6++/oos_qz3/src/fs' 'E:/Project/unix v6++/oos_qz3/src/include' 'E:/Project/unix v6++/oos_qz3/src/interrupt' 'E:/Project/unix v6++/oos_qz3/src/kernel' 'E:/Project/unix v6++/oos_qz3/src/lib' 'E:/Project/unix v6++/oos_qz3/src/machine' 'E:/Project/unix v6++/oos_qz3/src/mm' 'E:/Project/unix v6++/oos_qz3/src/pe' 'E:/Project/unix v6++/oos_qz3/src/proc' 'E:/Project/unix v6++/oos_qz3/src/program' 'E:/Project/unix v6++/oos_qz3/src/shell' 'E:/Project/unix v6++/oos_qz3/src/tty'"
+            //     },
+            // ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            // !修改!(5) 请修改为 : MinGW GDB 所在位置
+            "miDebuggerPath": "E:\\Library\\OOS\\MinGW\\bin\\gdb.exe",
+            "preLaunchTask": "OOS Run", // 前置任务: 启动 Bochs, 运行 OOS
+        }
+    ]
+}

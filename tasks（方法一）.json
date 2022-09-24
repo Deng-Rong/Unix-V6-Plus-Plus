@@ -1,0 +1,63 @@
+{
+    "tasks": [
+        { // 编译 OOS, 使用 Ctrl + Shift + B 编译
+            "type": "shell",
+            "label": "OOS Make",
+            "command": "make",
+            "args": [
+                // TODO: 修改 OOS Makefile. 
+                //       当前 OOS 的 Makefile 在执行 make all 时, 部分发生修改的源代码不会重新编译
+                //       因此先执行一次 make clean, 但这会造成编译时间增加, 考虑优化 OOS 的 Makefile
+                "clean",
+                "all",
+                "-C",
+                "${workspaceFolder}/src",
+                "SHELL=cmd", // 如果安装了 Git, make 会自动调用 bash 导致命令执行出错
+            ],
+            "options": {
+                "env": {
+                    // !修改!(1) 请修改为 : MinGW 所在位置
+                    // !修改!(2) 请修改为 : NASM 所在位置
+                    "Path": "E:\\Library\\OOS\\MinGW\\bin;E:\\Library\\OOS\\NASM;${env:Path};",
+                    // 注意: 1. 别把 ${env:Path}; 删了
+                    //       2. 别把分号 ; 删了
+                    "SHELL": "cmd"
+                }
+            },
+            "detail": "调用 Make 编译 OOS",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        { // 异步运行 Bochs 启动 OOS, 并且不跟踪其状态
+            "type": "shell",
+            "label": "OOS Run",
+            "command": "bochs.exe",
+            "args": [
+                "-q",
+                "-f",
+                "${workspaceFolder}\\targets\\UNIXV6++\\bochsrc.bxrc",
+                "-noconsole" // 停用命令行输出, 退出时不用再按enter
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}\\targets\\UNIXV6++\\",
+                "env": {
+                    // !修改!(3) 请修改为 : Bochs所在位置
+                    "BXSHARE": "E:\\Library\\OOS\\Bochs-2.6",
+                    // !修改!(4) 请修改为 : Bochs所在位置
+                    "Path": "E:\\Library\\OOS\\Bochs-2.6;${env:Path};"
+                    // 注意: 1. 别把 ${env:Path}; 删了
+                    //       2. 别把分号 ; 删了
+                }
+            },
+            "detail": "运行 OOS",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "isBackground": true // 作为后台任务, 不跟踪状态, 避免堵塞后续 GDB 的运行
+        },
+    ],
+    "version": "2.0.0"
+}
