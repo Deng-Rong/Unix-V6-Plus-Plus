@@ -1,0 +1,1 @@
+@start "UnixV6++ Env" /D"%oos_path%\targets\UNIXV6++Env" %windir%\system32\cmd.exe /k .\env.bat"
